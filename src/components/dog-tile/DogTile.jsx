@@ -10,8 +10,6 @@ import { faRandom } from '@fortawesome/free-solid-svg-icons'
 
 import { getBreedImage } from '../../shared/api/dogApi';
 
-import styles from './DogTile.module.scss';
-
 const DogTile = (props) => {
     const [breedImg, setBreedImg] = useState();
     const [imgLoading, setImageLoading] = useState(true);
@@ -58,7 +56,7 @@ const DogTile = (props) => {
     }
 
     return (
-        <Card className={styles.DogTile}>
+        <Card>
             <Card.Img src={breedImg} fluid="true"/>
             <Card.ImgOverlay>
                 <Card.Title>
