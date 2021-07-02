@@ -2,7 +2,8 @@ import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import { useState, useEffect, Suspense, lazy, Fragment } from 'react';
+import { useState, useEffect, useCallback, Suspense, lazy, Fragment } from 'react';
+import _ from 'lodash';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaw } from '@fortawesome/free-solid-svg-icons'
@@ -19,6 +20,7 @@ function App() {
 
     const [allBreeds, setAllBreeds] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
+    const [searchTerm, setSearchTerm] = useState();
 
     useEffect(() => {
         listBreads().then(data => {
@@ -35,18 +37,29 @@ function App() {
         })
     },[]);
 
-    const handleSearchUpdate = (search) => {
-        setSearchResults(allBreeds.filter(dogger => dogger.breed.includes(search)));
-    }
+    // Effect hook to filter the results when the search term is updated.
+    useEffect(() => {
+        setSearchResults(allBreeds.filter(dogger => dogger.breed.includes(searchTerm)));
+    }, [searchTerm]);
 
+    // Debounce helper so that we aren't thrashing resources when changing terms
+    const debounceSearchUpdate = useCallback(
+        _.debounce(search => {
+            setSearchTerm(search);
+        }, 500), [allBreeds]
+    );
+
+    // CB handler for search updates
+    const handleSearchUpdate = (search) => {
+        debounceSearchUpdate(search);
+    }
 
     return (
         <Fragment>
             <Navbar bg="dark" variant="dark" className="mb-4">
                 <Navbar.Brand>
-                    <FontAwesomeIcon icon={faPaw} />
-                    {' '}
-                    Dogger - The dog searcher
+                    <FontAwesomeIcon icon={faPaw} className="mr-2"/>
+                    <span>Dogger - The dog searcher</span>
                 </Navbar.Brand>
             </Navbar>
             <Container>
