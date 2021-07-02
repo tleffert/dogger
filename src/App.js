@@ -2,9 +2,13 @@ import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, Suspense, lazy, Fragment } from 'react';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaw } from '@fortawesome/free-solid-svg-icons'
 
 import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 
 import { listBreads } from './shared/api/dogApi';
 
@@ -37,10 +41,19 @@ function App() {
 
 
     return (
-      <Container>
-        <DogSearch updateSearchTerm={handleSearchUpdate}></DogSearch>
-        <DogSearchResults results={searchResults}></DogSearchResults>
-      </Container>
+        <Fragment>
+            <Navbar bg="dark" variant="dark" className="mb-4">
+                <Navbar.Brand>
+                    <FontAwesomeIcon icon={faPaw} />
+                    {' '}
+                    Dogger - The dog searcher
+                </Navbar.Brand>
+            </Navbar>
+            <Container>
+                <DogSearch updateSearchTerm={handleSearchUpdate}></DogSearch>
+                <DogSearchResults results={searchResults}></DogSearchResults>
+            </Container>
+        </Fragment>
     );
 }
 
