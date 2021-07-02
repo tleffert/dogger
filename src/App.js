@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 
 import Container from 'react-bootstrap/Container';
 
@@ -23,10 +23,11 @@ function App() {
             for (const breed in breedData) {
                 breeds.push({
                     breed: breed,
-                    subbreeds: breeds[breed]
+                    subbreeds: breedData[breed]
                 })
             }
             setAllBreeds(breeds);
+            setSearchResults(breeds.slice(0, 8));
         })
     },[]);
 
