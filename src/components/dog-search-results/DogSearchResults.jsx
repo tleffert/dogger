@@ -17,7 +17,7 @@ const DogSearchResults = (props) => {
             <CardDeck>
             {
                 props.results.map(dogger => (
-                    <Col className="mt-3" md="3" key={dogger.breed}>
+                    <Col className="mt-3" lg="3" md="4" sm="6" key={dogger.breed}>
                         <LazyLoad>
                             <DogTile dogger={dogger}></DogTile>
                         </LazyLoad>
