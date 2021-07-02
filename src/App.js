@@ -1,18 +1,15 @@
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import { useState, useEffect, useCallback, Suspense, lazy, Fragment } from 'react';
+import { useState, useEffect, useCallback, Fragment } from 'react';
 import _ from 'lodash';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaw } from '@fortawesome/free-solid-svg-icons'
 
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaw } from '@fortawesome/free-solid-svg-icons'
 
 import { listBreads } from './shared/api/dogApi';
-
 import DogSearch from './components/dog-search/DogSearch';
 import DogSearchResults from './components/dog-search-results/DogSearchResults';
 
@@ -22,6 +19,7 @@ function App() {
     const [searchResults, setSearchResults] = useState([]);
     const [searchTerm, setSearchTerm] = useState();
 
+    // On mounting just getting our inital entire list of doggos, and working from there
     useEffect(() => {
         listBreads().then(data => {
             let breeds = [];
@@ -46,7 +44,7 @@ function App() {
     const debounceSearchUpdate = useCallback(
         _.debounce(search => {
             setSearchTerm(search);
-        }, 500), [allBreeds]
+        }, 350), []
     );
 
     // CB handler for search updates

@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react';
-// import LazyLoad from 'react-lazy-load';
 import LazyLoad from 'react-lazyload';
 
 import CardDeck from 'react-bootstrap/CardDeck';
-import CardColumns from 'react-bootstrap/CardColumns';
-
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col';
 
